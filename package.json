@@ -1,0 +1,19 @@
+{
+  "name": "pr-ai",
+  "module": "index.ts",
+  "type": "module",
+  "bin": {
+    "pr-ai": "src/cli.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.3.19",
+    "ai": "^4.3.10"
+  }
+}
