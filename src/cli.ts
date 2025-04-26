@@ -383,7 +383,7 @@ async function main() {
 		if (openPr) {
 			const spinner = ora("Opening PR in browser...").start();
 			const prNumber = prUrl.split("/").pop();
-			if (prNumber && /^\\d+$/.test(prNumber)) {
+			if (prNumber && /^\d+$/.test(prNumber)) {
 				await $`gh browse ${prNumber}`.quiet();
 				spinner.succeed("PR opened in browser.");
 			} else {
@@ -395,6 +395,8 @@ async function main() {
 
 		console.log(theme.success("\n✨ PR AI process finished successfully!"));
 	} catch (error: unknown) {
+		// Errors should be handled and logged within specific functions
+		// This catch is a fallback
 		console.error(
 			theme.error("\n❌ An unexpected error occurred:"),
 			error instanceof Error ? error.message : error,
