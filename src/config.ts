@@ -28,7 +28,7 @@ export const defaultConfig: Partial<AppConfig> = {
  * @returns {Promise<Required<AppConfig>>} The loaded and merged configuration (ensuring all fields are present).
  */
 export async function loadConfig(): Promise<Required<AppConfig>> {
-	const explorer = cosmiconfig("pr-ai"); // Module name for searching
+	const explorer = cosmiconfig("pr-ally"); // Module name for searching
 	let loadedConfig: AppConfig = {};
 
 	try {

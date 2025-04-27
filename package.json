@@ -1,6 +1,6 @@
 {
 	"name": "pr-ally",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A command-line tool to automate GitHub Pull Request creation using AI",
 	"main": "dist/cli.js",
 	"bin": {
@@ -27,12 +27,12 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/arthurbpf/pr-ai.git"
+		"url": "git+https://github.com/arthurbpf/pr-ally.git"
 	},
 	"bugs": {
-		"url": "https://github.com/arthurbpf/pr-ai/issues"
+		"url": "https://github.com/arthurbpf/pr-ally/issues"
 	},
-	"homepage": "https://github.com/arthurbpf/pr-ai#readme",
+	"homepage": "https://github.com/arthurbpf/pr-ally#readme",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/bun": "latest"
