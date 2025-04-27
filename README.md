@@ -1,4 +1,4 @@
-# PR AI CLI 🤖
+# PR Ally CLI 🤖
 
 A command-line tool to automate GitHub Pull Request creation using AI.
 
@@ -27,7 +27,7 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 ### Via npm (Recommended)
 
 ```bash
-npm install -g pr-ai
+npm install -g pr-ally
 ```
 
 ### From Source
@@ -35,7 +35,7 @@ npm install -g pr-ai
 1.  **Clone the repository:**
     ```bash
     git clone <repository-url>
-    cd pr-ai
+    cd pr-ally
     ```
 2.  **Install dependencies:**
     ```bash
@@ -45,7 +45,7 @@ npm install -g pr-ai
     ```bash
     bun link
     ```
-    This makes the `pr-ai` command available in your terminal.
+    This makes the `pr-ally` command available in your terminal.
 
 ## Configuration
 
@@ -60,17 +60,17 @@ npm install -g pr-ai
 
 You can configure default options by creating a configuration file in your project directory or any parent directory. The tool uses `cosmiconfig` and will automatically look for:
 
-*   `.prairc` (YAML or JSON)
-*   `.prairc.json`
-*   `.prairc.yaml`
-*   `.prairc.yml`
-*   `.prairc.js` (ESM or CJS)
-*   `.prairc.cjs`
-*   `pr-ai.config.js` (ESM or CJS)
-*   `pr-ai.config.cjs`
-*   A `"pr-ai"` key in your `package.json`.
+*   `.prallyrc` (YAML or JSON)
+*   `.prallyrc.json`
+*   `.prallyrc.yaml`
+*   `.prallyrc.yml`
+*   `.prallyrc.js` (ESM or CJS)
+*   `.prallyrc.cjs`
+*   `pr-ally.config.js` (ESM or CJS)
+*   `pr-ally.config.cjs`
+*   A `"pr-ally"` key in your `package.json`.
 
-**Example `.prairc.json**:**
+**Example `.prallyrc.json**:**
 
 ```json
 {
@@ -80,7 +80,7 @@ You can configure default options by creating a configuration file in your proje
 }
 ```
 
-**Example `.prairc.js**:**
+**Example `.prallyrc.js**:**
 
 ```javascript
 module.exports = {
@@ -98,7 +98,7 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 3.  Ensure your desired changes are **committed** to the branch.
 4.  Run the command:
     ```bash
-    pr-ai
+    pr-ally
     ```
 
  The tool will guide you through the process:
