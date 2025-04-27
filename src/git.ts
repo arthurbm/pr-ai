@@ -5,12 +5,13 @@ import { theme } from "./theme";
 
 /**
  * Fetches Git information including current branch, diff, and commits against a base branch.
- * Prompts for confirmation if operating on main/master.
+ * Prompts for confirmation if operating on main/master unless skipConfirm is true.
  * @param {string} [baseBranch='main'] - The base branch to compare against.
+ * @param {boolean} [skipConfirm=false] - If true, skips confirmation prompts.
  * @returns {Promise<{currentBranch: string, diff: string, commits: string}>} - Git information.
  * @throws {Error} If no commits are found ahead of the base branch.
  */
-export async function getGitInfo(baseBranch = "main") {
+export async function getGitInfo(baseBranch = "main", skipConfirm = false) {
 	const spinner = ora(
 		`Getting Git info against base branch '${baseBranch}'...`,
 	).start();
@@ -20,7 +21,10 @@ export async function getGitInfo(baseBranch = "main") {
 		).trim();
 		spinner.text = `Current branch: ${theme.info(currentBranch)}`;
 
-		if (currentBranch === baseBranch || currentBranch === "master") {
+		if (
+			!skipConfirm &&
+			(currentBranch === baseBranch || currentBranch === "master")
+		) {
 			spinner.stop();
 			const { proceed } = await inquirer.prompt([
 				{
@@ -78,11 +82,15 @@ export async function getGitInfo(baseBranch = "main") {
 
 /**
  * Checks if the current branch needs to be pushed to the remote (origin).
- * Prompts the user to push if needed.
+ * Prompts the user to push if needed, unless skipConfirm is true.
  * @param {string} branchName - The name of the branch to check.
+ * @param {boolean} [skipConfirm=false] - If true, skips confirmation prompts.
  * @throws {Error} If the push fails or checking status fails.
  */
-export async function ensureBranchIsPushed(branchName: string) {
+export async function ensureBranchIsPushed(
+	branchName: string,
+	skipConfirm = false,
+) {
 	const spinner = ora(
 		`Checking remote status for branch '${branchName}'...`,
 	).start();
@@ -122,15 +130,20 @@ export async function ensureBranchIsPushed(branchName: string) {
 		}
 
 		if (needsPush) {
-			spinner.stop();
-			const { confirmPush } = await inquirer.prompt([
-				{
-					type: "confirm",
-					name: "confirmPush",
-					message: `Branch '${branchName}' needs to be pushed to the remote. Push now?`,
-					default: true,
-				},
-			]);
+			let confirmPush = true; // Assume yes if skipping confirm
+			if (!skipConfirm) {
+				spinner.stop();
+				const answers = await inquirer.prompt([
+					{
+						type: "confirm",
+						name: "confirmPush",
+						message: `Branch '${branchName}' needs to be pushed to the remote. Push now?`,
+						default: true,
+					},
+				]);
+				confirmPush = answers.confirmPush;
+				if (confirmPush) spinner.start(); // Restart spinner only if confirmed
+			}
 
 			if (confirmPush) {
 				spinner.start(theme.info(`Pushing branch '${branchName}'...`));
@@ -145,7 +158,8 @@ export async function ensureBranchIsPushed(branchName: string) {
 					throw new Error("Failed to push branch to remote.");
 				}
 				spinner.succeed(theme.success("Branch pushed successfully."));
-			} else {
+			} else if (!skipConfirm) {
+				// Only log cancellation if prompt was shown
 				console.log(
 					theme.warning("Push cancelled by user. Aborting PR creation."),
 				);

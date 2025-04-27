@@ -4,12 +4,12 @@ List of suggestions to improve the `pr-ai` CLI, based on previous recommendation
 
 ## 1. Argument Parsing and Configuration
 
-- [ ] **Argument Library:** Use `commander` or `yargs` to process arguments:
-  - [ ] `--base <branch>`: Specify base branch.
-  - [ ] `--model <model-name>`: Choose OpenAI model.
-  - [ ] `-y` or `--yes`: Skip confirmations.
-  - [ ] `--dry-run`: See title/body without creating PR.
-- [ ] **Configuration File:** Allow a file (`.pr-ai.json`?) to define defaults.
+- [x] **Argument Library:** Use `commander` or `yargs` to process arguments:
+  - [x] `--base <branch>`: Specify base branch.
+  - [x] `--model <model-name>`: Choose OpenAI model.
+  - [x] `-y` or `--yes`: Skip confirmations.
+  - [x] `--dry-run`: See title/body without creating PR.
+- [x] **Configuration File:** Allow a file (`.pr-ai.json`?) to define defaults.
 
 ## 2. User Experience (UX) Improvements
 

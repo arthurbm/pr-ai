@@ -48,6 +48,41 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
     (Add this to your `~/.zshrc`, `~/.bashrc`, or equivalent for persistence).
 *   **Editor:** Ensure the `EDITOR` environment variable is set as mentioned in Prerequisites.
 
+## Configuration File
+
+You can configure default options by creating a configuration file in your project directory or any parent directory. The tool uses `cosmiconfig` and will automatically look for:
+
+*   `.prairc` (YAML or JSON)
+*   `.prairc.json`
+*   `.prairc.yaml`
+*   `.prairc.yml`
+*   `.prairc.js` (ESM or CJS)
+*   `.prairc.cjs`
+*   `pr-ai.config.js` (ESM or CJS)
+*   `pr-ai.config.cjs`
+*   A `"pr-ai"` key in your `package.json`.
+
+**Example `.prairc.json**:**
+
+```json
+{
+  "baseBranch": "develop",
+  "model": "gpt-4.1-mini",
+  "skipConfirmations": false
+}
+```
+
+**Example `.prairc.js**:**
+
+```javascript
+module.exports = {
+  baseBranch: 'develop',
+  model: 'gpt-4.1-mini',
+};
+```
+
+Command-line arguments (e.g., `--base main`) will always override settings from the configuration file.
+
 ## Usage
 
 1.  Navigate to a Git repository directory.

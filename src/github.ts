@@ -52,17 +52,23 @@ export async function createGitHubPr(
 
 /**
  * Asks the user if they want to open the created PR and opens it in the browser.
+ * Skips the prompt if skipConfirm is true.
  * @param {string} prUrl - The URL of the pull request.
+ * @param {boolean} [skipConfirm=false] - If true, skips the confirmation prompt.
  */
-export async function askAndOpenPr(prUrl: string) {
-	const { openPr } = await inquirer.prompt([
-		{
-			type: "confirm",
-			name: "openPr",
-			message: `Open PR ${theme.info(prUrl)} in browser?`,
-			default: true,
-		},
-	]);
+export async function askAndOpenPr(prUrl: string, skipConfirm = false) {
+	let openPr = true; // Assume yes if skipping confirm
+	if (!skipConfirm) {
+		const answers = await inquirer.prompt([
+			{
+				type: "confirm",
+				name: "openPr",
+				message: `Open PR ${theme.info(prUrl)} in browser?`,
+				default: true,
+			},
+		]);
+		openPr = answers.openPr;
+	}
 
 	if (openPr) {
 		const spinner = ora(theme.info("Opening PR in browser...")).start();
