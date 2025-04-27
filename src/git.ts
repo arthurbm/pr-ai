@@ -16,6 +16,30 @@ export async function getGitInfo(baseBranch = "main", skipConfirm = false) {
 		`Getting Git info against base branch '${baseBranch}'...`,
 	).start();
 	try {
+		// --- Base Branch Validation ---
+		spinner.text = `Validating base branch '${baseBranch}'...`;
+		const localBranchExists = await $`git branch --list ${baseBranch}`.text();
+		if (!localBranchExists.trim()) {
+			// Check remote before failing
+			const remoteBranchExists =
+				await $`git ls-remote --heads origin ${baseBranch}`.text();
+			if (!remoteBranchExists.trim()) {
+				throw new Error(
+					`Base branch '${baseBranch}' not found locally or on remote 'origin'.`,
+				);
+			}
+			// If remote exists but not local, we might need to fetch/track it, but for diffing it might be okay if commits exist
+			spinner.warn(
+				theme.warning(
+					`Base branch '${baseBranch}' not found locally, but exists on remote 'origin'. Proceeding...`,
+				),
+			);
+		} else {
+			spinner.succeed(theme.success(`Base branch '${baseBranch}' validated.`));
+			spinner.start(); // Restart spinner for next steps
+		}
+		// -----------------------------
+
 		const currentBranch = (
 			await $`git rev-parse --abbrev-ref HEAD`.text()
 		).trim();
@@ -76,7 +100,9 @@ export async function getGitInfo(baseBranch = "main", skipConfirm = false) {
 	} catch (error: unknown) {
 		spinner.fail(theme.error("Failed to get Git information."));
 		if (error instanceof Error) throw error;
-		throw new Error("An unknown error occurred while fetching Git info.");
+		throw new Error(
+			"Git Error: An unknown error occurred while fetching Git info.",
+		);
 	}
 }
 
@@ -155,7 +181,9 @@ export async function ensureBranchIsPushed(
 				if (pushResult.exitCode !== 0) {
 					spinner.fail(theme.error("Git push failed."));
 					console.error(theme.dim(pushResult.stderr.toString()));
-					throw new Error("Failed to push branch to remote.");
+					throw new Error(
+						`Failed to push branch to remote. Command: 'git push${setUpstream ? ` --set-upstream origin ${branchName}` : ""}'`,
+					);
 				}
 				spinner.succeed(theme.success("Branch pushed successfully."));
 			} else if (!skipConfirm) {
@@ -176,6 +204,8 @@ export async function ensureBranchIsPushed(
 			message = stderr ?? msg ?? message;
 		}
 		console.error(theme.error("Error details:"), theme.dim(message));
-		throw new Error("Error interacting with git for branch status/push.");
+		throw new Error(
+			"Git Error: Error during git status check or push operation.",
+		);
 	}
 }

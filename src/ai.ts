@@ -2,6 +2,7 @@ import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import ora from "ora";
 import { z } from "zod";
+import { parseAiApiError } from "./errors";
 import { theme } from "./theme";
 
 /**
@@ -61,9 +62,8 @@ export async function generatePrContent(
 		});
 		spinner.succeed(theme.success("PR content generated."));
 		return object;
-	} catch (error) {
+	} catch (error: unknown) {
 		spinner.fail(theme.error("AI generation failed."));
-		console.error(theme.error("Error details:"), error);
-		throw new Error("Failed to generate PR content using AI.");
+		throw parseAiApiError(error, modelName);
 	}
 }
