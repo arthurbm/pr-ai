@@ -9,6 +9,7 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 *   Analyzes committed changes between your current branch and a base branch (default: `main`).
 *   Generates PR title and body using AI (powered by Vercel AI SDK and OpenAI).
 *   Allows reviewing and editing the AI-generated content before creating the PR.
+*   Supports multiple languages for PR content generation.
 *   Checks for prerequisites (`git`, `gh` installed and authenticated, `OPENAI_API_KEY` set).
 *   Prompts to push the current branch if it doesn't exist on the remote.
 *   Optionally opens the created PR in your browser.
@@ -117,7 +118,8 @@ You can configure default options by creating a configuration file in your proje
 {
   "baseBranch": "develop",
   "model": "gpt-4.1-mini",
-  "skipConfirmations": false
+  "skipConfirmations": false,
+  "language": "portuguese"
 }
 ```
 
@@ -127,6 +129,7 @@ You can configure default options by creating a configuration file in your proje
 module.exports = {
   baseBranch: 'develop',
   model: 'gpt-4.1-mini',
+  language: 'spanish',
 };
 ```
 
@@ -141,12 +144,29 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
     ```bash
     pr-magic
     ```
+5.  You can specify different options with command line arguments:
+    ```bash
+    # Generate PR content in Portuguese
+    pr-magic --language portuguese
+    
+    # Use a different model
+    pr-magic --model gpt-4o
+    
+    # Change base branch
+    pr-magic --base develop
+    
+    # Skip confirmations
+    pr-magic --yes
+    
+    # Combine multiple options
+    pr-magic --language spanish --model gpt-4o --base develop --yes
+    ```
 
  The tool will guide you through the process:
     *   Checking prerequisites.
     *   Analyzing commits against the base branch (`main` by default).
     *   Pushing the branch if needed (with confirmation).
-    *   Generating PR content with AI.
+    *   Generating PR content with AI in your specified language (English by default).
     *   Allowing you to review, edit, or confirm the content.
     *   Creating the PR on GitHub.
     *   Asking if you want to open the PR in the browser.

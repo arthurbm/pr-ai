@@ -26,13 +26,15 @@ export const PrContentSchema = z.object({
  * @param {string} diff - The git diff string.
  * @param {string} [commits] - The commit summaries string.
  * @param {string} [modelName='gpt-4.1-mini'] - The OpenAI model name to use.
+ * @param {string} [language='english'] - The language to generate the PR content in.
  * @returns {Promise<z.infer<typeof PrContentSchema>>} - The generated title and body.
  * @throws {Error} If API key is missing or AI generation fails.
  */
 export async function generatePrContent(
 	diff: string,
 	commits?: string,
-	modelName = "gpt-4.1-mini", // Add modelName parameter with default
+	modelName = "gpt-4.1-mini",
+	language = "english",
 ): Promise<z.infer<typeof PrContentSchema>> {
 	const spinner = ora(
 		theme.info("🤖 Generating PR content with AI..."),
@@ -44,15 +46,14 @@ export async function generatePrContent(
 			);
 		}
 
-		spinner.text = `🤖 Generating PR content using ${theme.info(modelName)}...`;
+		spinner.text = `🤖 Generating PR content using ${theme.info(modelName)} in ${theme.info(language)}...`;
 		const model = openai(modelName);
 
 		// System prompt providing context and instructions to the AI
-		const systemPrompt =
-			"You are an expert programmer assisting with drafting a GitHub Pull Request. Based on the provided git diff (representing changes since the base branch) and commit summaries, generate a concise, informative title (max 70 chars) and a detailed body description for the PR. The title should summarize the main changes reflected in the commits and diff. The body should explain the purpose and context of the changes, referencing the commit summaries if helpful. Use markdown formatting for the body.";
+		const systemPrompt = `You are an expert programmer assisting with drafting a GitHub Pull Request in ${language}. Based on the provided git diff (representing changes since the base branch) and commit summaries, generate a concise, informative title (max 70 chars) and a detailed body description for the PR. The title should summarize the main changes reflected in the commits and diff. The body should explain the purpose and context of the changes, referencing the commit summaries if helpful. Use markdown formatting for the body.`;
 
 		// User prompt providing the actual diff and commit data
-		const userPrompt = `Git Diff:\n\`\`\`diff\n${diff}\n\`\`\`\n\nCommit Summaries:\n\`\`\`\n${commits || "No commit summaries available."}\n\`\`\`\n\nPlease generate the PR title and body.`;
+		const userPrompt = `Git Diff:\n\`\`\`diff\n${diff}\n\`\`\`\n\nCommit Summaries:\n\`\`\`\n${commits || "No commit summaries available."}\n\`\`\`\n\nPlease generate the PR title and body in ${language}.`;
 
 		const { object } = await generateObject({
 			model,

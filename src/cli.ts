@@ -36,6 +36,11 @@ async function main() {
 			config.model,
 		) // Use config value as default
 		.option(
+			"-l, --language <language>",
+			"Specify the language for PR content (e.g., english, portuguese, spanish)",
+			config.language,
+		) // Use config value as default
+		.option(
 			"-y, --yes",
 			"Skip all confirmation prompts",
 			config.skipConfirmations,
@@ -49,6 +54,7 @@ async function main() {
 		...program.opts<{
 			base?: string;
 			model?: string;
+			language?: string;
 			yes?: boolean;
 			dryRun?: boolean;
 		}>(),
@@ -74,6 +80,7 @@ async function main() {
 			diff,
 			commits,
 			options.model,
+			options.language,
 		);
 
 		let finalPrContent: { title: string; body: string } | null = {
