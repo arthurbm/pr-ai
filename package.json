@@ -1,6 +1,6 @@
 {
 	"name": "pr-magic",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A command-line tool to automate GitHub Pull Request creation using AI",
 	"main": "dist/cli.js",
 	"bin": {

@@ -9,6 +9,7 @@ const ConfigFileSchema = z
 		baseBranch: z.string().optional(),
 		model: z.string().optional(),
 		skipConfirmations: z.boolean().optional(), // Map to --yes flag
+		language: z.string().optional(), // Add language option
 	})
 	.strict(); // Use strict to prevent unknown properties
 
@@ -19,6 +20,7 @@ export const defaultConfig: Partial<AppConfig> = {
 	baseBranch: "main",
 	model: "gpt-4.1-mini",
 	skipConfirmations: false,
+	language: "english", // Default language is English
 };
 
 /**
