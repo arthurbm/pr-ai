@@ -2,15 +2,37 @@
 	"name": "pr-ai",
 	"version": "1.0.0",
 	"description": "A command-line tool to automate GitHub Pull Request creation using AI",
-	"main": "src/cli.ts",
+	"main": "dist/cli.js",
 	"bin": {
-		"pr-ai": "src/cli.ts"
+		"pr-ai": "dist/cli.js"
 	},
+	"type": "module",
+	"files": ["dist", "README.md", "LICENSE"],
 	"scripts": {
 		"dev": "bun run src/cli.ts",
 		"build": "tsc",
-		"start": "bun run src/cli.ts"
+		"start": "bun run src/cli.ts",
+		"prepublishOnly": "bun run build"
 	},
+	"author": "Arthur Andrade",
+	"license": "MIT",
+	"keywords": [
+		"github",
+		"pull-request",
+		"ai",
+		"cli",
+		"automation",
+		"openai",
+		"git"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arthurbpf/pr-ai.git"
+	},
+	"bugs": {
+		"url": "https://github.com/arthurbpf/pr-ai/issues"
+	},
+	"homepage": "https://github.com/arthurbpf/pr-ai#readme",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/bun": "latest"

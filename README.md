@@ -10,7 +10,7 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 *   Generates PR title and body using AI (powered by Vercel AI SDK and OpenAI).
 *   Allows reviewing and editing the AI-generated content before creating the PR.
 *   Checks for prerequisites (`git`, `gh` installed and authenticated, `OPENAI_API_KEY` set).
-*   Prompts to push the current branch if it doesn\'t exist on the remote.
+*   Prompts to push the current branch if it doesn't exist on the remote.
 *   Optionally opens the created PR in your browser.
 *   Uses spinners and colored output for a better user experience.
 
@@ -23,6 +23,14 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 5.  **Editor Configuration:** The CLI uses your default text editor for editing the PR body. Make sure the `EDITOR` environment variable is set (e.g., `export EDITOR=nano` or `export EDITOR=\"code --wait\"`).
 
 ## Installation
+
+### Via npm (Recommended)
+
+```bash
+npm install -g pr-ai
+```
+
+### From Source
 
 1.  **Clone the repository:**
     ```bash
