@@ -52,7 +52,7 @@ bun add -g pr-magic
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/arthurbpf/pr-magic.git
+    git clone https://github.com/arthurbm/pr-magic.git
     cd pr-magic
     ```
 2.  **Install dependencies and build:**
