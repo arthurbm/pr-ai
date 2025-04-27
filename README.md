@@ -16,11 +16,10 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 
 ## Prerequisites
 
-1.  **Bun:** Developed using Bun. Install from [bun.sh](https://bun.sh/).
-2.  **Git:** Must be installed. [git-scm.com](https://git-scm.com/)
-3.  **GitHub CLI (`gh`):** Must be installed and authenticated. Run `gh auth login` after installation. [cli.github.com](https://cli.github.com/)
-4.  **OpenAI API Key:** You need an API key from OpenAI. [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
-5.  **Editor Configuration:** The CLI uses your default text editor for editing the PR body. Make sure the `EDITOR` environment variable is set (e.g., `export EDITOR=nano` or `export EDITOR=\"code --wait\"`).
+1.  **Git:** Must be installed. [git-scm.com](https://git-scm.com/)
+2.  **GitHub CLI (`gh`):** Must be installed and authenticated. Run `gh auth login` after installation. [cli.github.com](https://cli.github.com/)
+3.  **OpenAI API Key:** You need an API key from OpenAI. [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+4.  **Editor Configuration:** The CLI uses your default text editor for editing the PR body. Make sure the `EDITOR` environment variable is set (e.g., `export EDITOR=nano` or `export EDITOR=\"code --wait\"`).
 
 ## Installation
 
@@ -30,6 +29,24 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 npm install -g pr-magic
 ```
 
+### Via yarn
+
+```bash
+yarn global add pr-magic
+```
+
+### Via pnpm
+
+```bash
+pnpm add -g pr-magic
+```
+
+### Via bun
+
+```bash
+bun add -g pr-magic
+```
+
 ### From Source
 
 1.  **Clone the repository:**
@@ -37,12 +54,36 @@ npm install -g pr-magic
     git clone https://github.com/arthurbpf/pr-magic.git
     cd pr-magic
     ```
-2.  **Install dependencies:**
+2.  **Install dependencies and build:**
     ```bash
+    # Using npm
+    npm install
+    npm run build
+    
+    # Using yarn
+    yarn
+    yarn build
+    
+    # Using pnpm
+    pnpm install
+    pnpm build
+    
+    # Using bun
     bun install
+    bun run build
     ```
 3.  **Link the CLI for local use:**
     ```bash
+    # Using npm
+    npm link
+    
+    # Using yarn
+    yarn link
+    
+    # Using pnpm
+    pnpm link -g
+    
+    # Using bun
     bun link
     ```
     This makes the `pr-magic` command available in your terminal.
@@ -114,11 +155,25 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 
 *   **Linting/Formatting:** Uses BiomeJS.
     ```bash
+    npx @biomejs/biome check --apply .
+    npx @biomejs/biome format --write .
+    
+    # Using bun
     bunx @biomejs/biome check --apply .
     bunx @biomejs/biome format --write .
     ```
+*   **Building:**
+    ```bash
+    npm run build
+    
+    # Using bun
+    bun run build
+    ```
 *   **Testing:** (Basic setup exists)
     ```bash
+    npm test
+    
+    # Using bun
     bun test
     ```
 
@@ -127,5 +182,15 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 To remove the globally linked command:
 
 ```bash
+# Using npm
+npm unlink -g pr-magic
+
+# Using yarn
+yarn global remove pr-magic
+
+# Using pnpm
+pnpm unlink -g pr-magic
+
+# Using bun
 bun unlink
 ```

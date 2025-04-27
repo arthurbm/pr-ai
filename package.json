@@ -14,7 +14,7 @@
 		"start": "bun run src/cli.ts",
 		"prepublishOnly": "bun run build"
 	},
-	"author": "Arthur Andrade",
+	"author": "arthurbm",
 	"license": "MIT",
 	"keywords": [
 		"github",
