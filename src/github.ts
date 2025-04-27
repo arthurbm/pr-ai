@@ -46,7 +46,7 @@ export async function createGitHubPr(
 				"Ensure your branch exists on the remote repository ('origin').",
 			),
 		);
-		throw new Error("gh pr create command failed.");
+		throw new Error("GitHub CLI Error: gh pr create command failed.");
 	}
 }
 
@@ -79,7 +79,7 @@ export async function askAndOpenPr(prUrl: string, skipConfirm = false) {
 				spinner.succeed(theme.success("PR opened in browser."));
 			} catch (browseError: unknown) {
 				spinner.fail(
-					theme.error("Failed to open PR in browser via gh browse."),
+					theme.error("GitHub CLI Error: Failed to open PR via gh browse."),
 				);
 				console.error(theme.error("Error details:"), browseError);
 				console.warn(theme.warning(`Please open the URL manually: ${prUrl}`));

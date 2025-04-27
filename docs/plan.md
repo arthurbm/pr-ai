@@ -20,8 +20,8 @@ List of suggestions to improve the `pr-ai` CLI, based on previous recommendation
 ## 3. Robustness and Error Handling
 
 - [x] **Base Branch Validation:** Verify if the base branch exists locally/remotely before calculating the diff.
-- [ ] **API Errors:** Improve handling of OpenAI API errors (rate limit, invalid key, etc.) - *Partially improved, checks basic patterns.*
-- [ ] **`gh` and `git` Errors:** Better differentiate errors from `git` and `gh` - *Partially improved, added command context.*
+- [x] **API Errors:** Improve handling of OpenAI API errors (rate limit, invalid key, etc.) - *Improved based on `AI_APICallError` structure.*
+- [x] **`gh` and `git` Errors:** Better differentiate errors from `git` and `gh` - *Improved, added command context/prefixes.*
 
 ## 4. Code Quality and Maintenance
 

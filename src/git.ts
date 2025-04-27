@@ -100,7 +100,9 @@ export async function getGitInfo(baseBranch = "main", skipConfirm = false) {
 	} catch (error: unknown) {
 		spinner.fail(theme.error("Failed to get Git information."));
 		if (error instanceof Error) throw error;
-		throw new Error("An unknown error occurred while fetching Git info.");
+		throw new Error(
+			"Git Error: An unknown error occurred while fetching Git info.",
+		);
 	}
 }
 
@@ -202,6 +204,8 @@ export async function ensureBranchIsPushed(
 			message = stderr ?? msg ?? message;
 		}
 		console.error(theme.error("Error details:"), theme.dim(message));
-		throw new Error("Error during git status check or push operation.");
+		throw new Error(
+			"Git Error: Error during git status check or push operation.",
+		);
 	}
 }
