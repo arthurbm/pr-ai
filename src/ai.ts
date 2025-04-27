@@ -61,9 +61,44 @@ export async function generatePrContent(
 		});
 		spinner.succeed(theme.success("PR content generated."));
 		return object;
-	} catch (error) {
+	} catch (error: unknown) {
 		spinner.fail(theme.error("AI generation failed."));
-		console.error(theme.error("Error details:"), error);
-		throw new Error("Failed to generate PR content using AI.");
+		// Attempt to parse more specific errors
+		let detailedMessage = "Failed to generate PR content using AI.";
+		if (error instanceof Error) {
+			detailedMessage = error.message; // Default to the error message
+			// Check for common OpenAI/API error patterns (this might need adjustment based on actual Vercel SDK error structure)
+			if (
+				error.message.includes("401") ||
+				error.message.toLowerCase().includes("invalid api key")
+			) {
+				detailedMessage =
+					"Invalid OpenAI API Key. Please check your OPENAI_API_KEY environment variable.";
+			} else if (
+				error.message.includes("429") ||
+				error.message.toLowerCase().includes("rate limit")
+			) {
+				detailedMessage =
+					"OpenAI API rate limit exceeded. Please try again later or check your usage.";
+			} else if (
+				error.message.includes("404") ||
+				error.message.toLowerCase().includes("model not found")
+			) {
+				detailedMessage = `The specified AI model was not found. Ensure the model name is correct. Cause: ${error.message}`;
+			} else if (error.message.toLowerCase().includes("insufficient quota")) {
+				detailedMessage =
+					"OpenAI API quota exceeded. Please check your billing details on OpenAI.";
+			}
+			// Log the original error for debugging if needed
+			console.error(
+				theme.error("Original AI Error:"),
+				theme.dim(error.stack || error.message),
+			);
+		} else {
+			// Log non-Error objects
+			console.error(theme.error("Raw AI Error:"), error);
+		}
+		// Throw a new error with the potentially more specific message
+		throw new Error(detailedMessage);
 	}
 }

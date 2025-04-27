@@ -46,7 +46,7 @@ export async function createGitHubPr(
 				"Ensure your branch exists on the remote repository ('origin').",
 			),
 		);
-		throw new Error("GitHub PR creation failed.");
+		throw new Error("gh pr create command failed.");
 	}
 }
 
