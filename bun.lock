@@ -2,7 +2,7 @@
 	"lockfileVersion": 1,
 	"workspaces": {
 		"": {
-			"name": "pr-ally",
+			"name": "pr-magic",
 			"dependencies": {
 				"@ai-sdk/openai": "^1.3.19",
 				"ai": "^4.3.10",

@@ -1,4 +1,4 @@
-# PR Ally CLI 🤖
+# PR Magic CLI 🧙✨
 
 A command-line tool to automate GitHub Pull Request creation using AI.
 
@@ -27,15 +27,15 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 ### Via npm (Recommended)
 
 ```bash
-npm install -g pr-ally
+npm install -g pr-magic
 ```
 
 ### From Source
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
-    cd pr-ally
+    git clone https://github.com/arthurbpf/pr-magic.git
+    cd pr-magic
     ```
 2.  **Install dependencies:**
     ```bash
@@ -45,7 +45,7 @@ npm install -g pr-ally
     ```bash
     bun link
     ```
-    This makes the `pr-ally` command available in your terminal.
+    This makes the `pr-magic` command available in your terminal.
 
 ## Configuration
 
@@ -60,17 +60,17 @@ npm install -g pr-ally
 
 You can configure default options by creating a configuration file in your project directory or any parent directory. The tool uses `cosmiconfig` and will automatically look for:
 
-*   `.prallyrc` (YAML or JSON)
-*   `.prallyrc.json`
-*   `.prallyrc.yaml`
-*   `.prallyrc.yml`
-*   `.prallyrc.js` (ESM or CJS)
-*   `.prallyrc.cjs`
-*   `pr-ally.config.js` (ESM or CJS)
-*   `pr-ally.config.cjs`
-*   A `"pr-ally"` key in your `package.json`.
+*   `.prmagicrc` (YAML or JSON)
+*   `.prmagicrc.json`
+*   `.prmagicrc.yaml`
+*   `.prmagicrc.yml`
+*   `.prmagicrc.js` (ESM or CJS)
+*   `.prmagicrc.cjs`
+*   `pr-magic.config.js` (ESM or CJS)
+*   `pr-magic.config.cjs`
+*   A `"pr-magic"` key in your `package.json`.
 
-**Example `.prallyrc.json**:**
+**Example `.prmagicrc.json**:**
 
 ```json
 {
@@ -80,7 +80,7 @@ You can configure default options by creating a configuration file in your proje
 }
 ```
 
-**Example `.prallyrc.js**:**
+**Example `.prmagicrc.js**:**
 
 ```javascript
 module.exports = {
@@ -98,7 +98,7 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 3.  Ensure your desired changes are **committed** to the branch.
 4.  Run the command:
     ```bash
-    pr-ally
+    pr-magic
     ```
 
  The tool will guide you through the process:
