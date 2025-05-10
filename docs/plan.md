@@ -1,6 +1,6 @@
 # PR AI CLI - Improvement Tracking
 
-List of suggestions to improve the `pr-magic` CLI, based on previous recommendations.
+List of suggestions to improve the `gitmagic` CLI, based on previous recommendations.
 
 ## 1. Argument Parsing and Configuration
 
@@ -9,7 +9,7 @@ List of suggestions to improve the `pr-magic` CLI, based on previous recommendat
   - [x] `--model <model-name>`: Choose OpenAI model.
   - [x] `-y` or `--yes`: Skip confirmations.
   - [x] `--dry-run`: See title/body without creating PR.
-- [x] **Configuration File:** Allow a file (`.pr-magic.json`?) to define defaults.
+- [x] **Configuration File:** Allow a file (`.gitmagic.json`?) to define defaults.
 
 ## 2. User Experience (UX) Improvements
 
@@ -48,4 +48,4 @@ List of suggestions to improve the `pr-magic` CLI, based on previous recommendat
 - [ ] **Authenticate with npm:** Run `npm login` (or `bunx npm login`).
 - [ ] **Versioning:** Use `npm version patch|minor|major` to update version before publishing.
 - [ ] **Publish:** Run `npm publish` (or `bunx npm publish`).
-- [ ] **Test Installation:** Install globally (`npm install -g pr-magic`) and test. 
+- [ ] **Test Installation:** Install globally (`npm install -g gitmagic`) and test. 
