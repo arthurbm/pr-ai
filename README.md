@@ -1,4 +1,4 @@
-# PR Magic CLI 🧙✨
+# GitMagic CLI 🧙✨
 
 A command-line tool to automate GitHub Pull Request creation using AI.
 
@@ -27,33 +27,33 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a re
 ### Via npm (Recommended)
 
 ```bash
-npm install -g pr-magic
+npm install -g gitmagic
 ```
 
 ### Via yarn
 
 ```bash
-yarn global add pr-magic
+yarn global add gitmagic
 ```
 
 ### Via pnpm
 
 ```bash
-pnpm add -g pr-magic
+pnpm add -g gitmagic
 ```
 
 ### Via bun
 
 ```bash
-bun add -g pr-magic
+bun add -g gitmagic
 ```
 
 ### From Source
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/arthurbm/pr-magic.git
-    cd pr-magic
+    git clone https://github.com/arthurbm/gitmagic.git
+    cd gitmagic
     ```
 2.  **Install dependencies and build:**
     ```bash
@@ -87,7 +87,7 @@ bun add -g pr-magic
     # Using bun
     bun link
     ```
-    This makes the `pr-magic` command available in your terminal.
+    This makes the `gitmagic` command available in your terminal.
 
 ## Configuration
 
@@ -102,17 +102,17 @@ bun add -g pr-magic
 
 You can configure default options by creating a configuration file in your project directory or any parent directory. The tool uses `cosmiconfig` and will automatically look for:
 
-*   `.prmagicrc` (YAML or JSON)
-*   `.prmagicrc.json`
-*   `.prmagicrc.yaml`
-*   `.prmagicrc.yml`
-*   `.prmagicrc.js` (ESM or CJS)
-*   `.prmagicrc.cjs`
-*   `pr-magic.config.js` (ESM or CJS)
-*   `pr-magic.config.cjs`
-*   A `"pr-magic"` key in your `package.json`.
+*   `.gitmagicrc` (YAML or JSON)
+*   `.gitmagicrc.json`
+*   `.gitmagicrc.yaml`
+*   `.gitmagicrc.yml`
+*   `.gitmagicrc.js` (ESM or CJS)
+*   `.gitmagicrc.cjs`
+*   `gitmagic.config.js` (ESM or CJS)
+*   `gitmagic.config.cjs`
+*   A `"gitmagic"` key in your `package.json`.
 
-**Example `.prmagicrc.json**:**
+**Example `.gitmagicrc.json**:**
 
 ```json
 {
@@ -123,7 +123,7 @@ You can configure default options by creating a configuration file in your proje
 }
 ```
 
-**Example `.prmagicrc.js**:**
+**Example `.gitmagicrc.js**:**
 
 ```javascript
 module.exports = {
@@ -142,24 +142,24 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 3.  Ensure your desired changes are **committed** to the branch.
 4.  Run the command:
     ```bash
-    pr-magic
+    gitmagic
     ```
 5.  You can specify different options with command line arguments:
     ```bash
     # Generate PR content in Portuguese
-    pr-magic --language portuguese
+    gitmagic --language portuguese
     
     # Use a different model
-    pr-magic --model gpt-4o
+    gitmagic --model gpt-4o
     
     # Change base branch
-    pr-magic --base develop
+    gitmagic --base develop
     
     # Skip confirmations
-    pr-magic --yes
+    gitmagic --yes
     
     # Combine multiple options
-    pr-magic --language spanish --model gpt-4o --base develop --yes
+    gitmagic --language spanish --model gpt-4o --base develop --yes
     ```
 
  The tool will guide you through the process:
@@ -203,13 +203,13 @@ To remove the globally linked command:
 
 ```bash
 # Using npm
-npm unlink -g pr-magic
+npm unlink -g gitmagic
 
 # Using yarn
-yarn global remove pr-magic
+yarn global remove gitmagic
 
 # Using pnpm
-pnpm unlink -g pr-magic
+pnpm unlink -g gitmagic
 
 # Using bun
 bun unlink

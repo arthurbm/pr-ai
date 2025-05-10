@@ -1,10 +1,10 @@
 {
-	"name": "pr-magic",
+	"name": "gitmagic",
 	"version": "1.0.3",
 	"description": "A command-line tool to automate GitHub Pull Request creation using AI",
 	"main": "dist/cli.js",
 	"bin": {
-		"pr-magic": "dist/cli.js"
+		"gitmagic": "dist/cli.js"
 	},
 	"type": "module",
 	"files": ["dist", "README.md", "LICENSE"],
@@ -27,12 +27,12 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/arthurbm/pr-magic.git"
+		"url": "git+https://github.com/arthurbm/gitmagic.git"
 	},
 	"bugs": {
-		"url": "https://github.com/arthurbm/pr-magic/issues"
+		"url": "https://github.com/arthurbm/gitmagic/issues"
 	},
-	"homepage": "https://github.com/arthurbm/pr-magic#readme",
+	"homepage": "https://github.com/arthurbm/gitmagic#readme",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/bun": "latest"
