@@ -1,10 +1,10 @@
 #!/usr/bin/env bun
 
 import { program } from "commander"; // Import commander
-import { version } from "../../package.json"; // Import version for CLI
-import { registerGenerateCommands } from "../commands/generate";
-import { loadConfig } from "../config/config"; // Import config loader
-import { theme } from "./theme";
+import { version } from "../package.json"; // Import version for CLI
+import { registerGenerateCommands } from "./commands/generate";
+import { loadConfig } from "./config/config"; // Import config loader
+import { theme } from "./ui/theme";
 
 /**
  * Main function for the PR AI CLI.
