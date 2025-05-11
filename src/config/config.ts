@@ -1,6 +1,6 @@
 import { cosmiconfig } from "cosmiconfig";
 import { z } from "zod";
-import { theme } from "./theme";
+import { theme } from "../ui/theme";
 
 // Define the schema for the configuration file
 // Optional fields allow users to only specify what they want to override

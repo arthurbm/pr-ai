@@ -1,4 +1,4 @@
-import { theme } from "./theme";
+import { theme } from "../ui/theme";
 
 /**
  * Parses a potential AI API error and returns a more user-friendly Error object.
