@@ -27,7 +27,7 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
 
 - [x] **Modularization:** Split `cli.ts` into modules (`theme.ts`, `prerequisites.ts`, `git.ts`, `ai.ts`, `ui.ts`, `github.ts`).
 - [ ] **Tests:** Expand unit/integration tests with `bun test` and mocking.
-  - [x] Basic test setup and example for `prerequisites.ts`.
+  - [ ] Basic test setup and example for `prerequisites.ts`.
 - [x] **Documentation (JSDoc):** Add JSDoc to exported functions.
 - [x] **README:** Create detailed `README.md`.
 
@@ -94,4 +94,19 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
   - [x] `src/errors.ts` -> `src/utils/errors.ts`
 - [x] **Update import paths in all affected files.**
 - [x] **Verify all commands and functionalities after refactoring.**
-- [x] **Run tests (if applicable) to ensure no regressions.** 
+- [x] **Run tests (if applicable) to ensure no regressions.**
+
+## 10. Further Architectural Improvements
+
+- [ ] **Expand Test Coverage (related to Section 4):**
+  - [ ] Identify critical modules in `src/core/` for unit tests (e.g., `ai.ts`, `git.ts`, `github.ts`).
+  - [ ] Write unit tests for `core/ai.ts`.
+  - [ ] Write unit tests for `core/git.ts`.
+  - [ ] Write unit tests for `core/github.ts`.
+  - [ ] Create integration tests for the `generate pr` command, covering various scenarios and options.
+  - [ ] Implement/enhance mocking for external dependencies (OpenAI API, GitHub API, `git` CLI, `gh` CLI) to ensure isolated unit tests.
+- [ ] **Define Interfaces for Core Services:**
+  - [ ] Create interface definitions (e.g., `src/core/ai.interface.ts`, `src/core/git.interface.ts`, `src/core/github.interface.ts`).
+  - [ ] Refactor existing core service modules (`ai.ts`, `git.ts`, `github.ts`) to implement these interfaces.
+  - [ ] Update command handlers and other dependent modules to use these interfaces (Dependency Inversion Principle) rather than concrete implementations.
+  - [ ] Evaluate the need for a Dependency Injection (DI) container or a simpler factory pattern for providing service implementations. 
