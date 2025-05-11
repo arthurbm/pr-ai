@@ -163,13 +163,45 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
     ```
 
  The tool will guide you through the process:
-    *   Checking prerequisites.
-    *   Analyzing commits against the base branch (`main` by default).
-    *   Pushing the branch if needed (with confirmation).
-    *   Generating PR content with AI in your specified language (English by default).
-    *   Allowing you to review, edit, or confirm the content.
-    *   Creating the PR on GitHub.
-    *   Asking if you want to open the PR in the browser.
+    *   **For `generate pr`:**
+        *   Checking prerequisites.
+        *   Analyzing commits against the base branch (`main` by default).
+        *   Pushing the branch if needed (with confirmation).
+        *   Generating PR content with AI in your specified language (English by default).
+        *   Allowing you to review, edit, or confirm the content.
+        *   Creating the PR on GitHub.
+        *   Asking if you want to open the PR in the browser.
+
+### Generating a Commit Message
+
+1.  Navigate to a Git repository directory.
+2.  Stage the changes you want to include in the commit (`git add <file>...` or `git add .`).
+3.  Run the command:
+    ```bash
+    gitmagic generate commit
+    ```
+4.  You can specify different options with command line arguments:
+    ```bash
+    # Automatically stage all modified/deleted files before generating commit message
+    gitmagic generate commit -a
+
+    # Use a different model for commit message generation
+    gitmagic generate commit --model gpt-4o
+
+    # Generate commit message in a specific language (e.g., for commit conventions in other languages)
+    gitmagic generate commit --language portuguese
+
+    # Skip confirmation prompts
+    gitmagic generate commit --yes
+    ```
+
+The tool will guide you through the process:
+    *   **For `generate commit`:**
+        *   Checking for staged changes.
+        *   If no staged changes, it may prompt to stage unstaged changes (unless `--yes` or `-a` is used).
+        *   Generating a commit message with AI based on your staged changes.
+        *   Allowing you to review, edit, or confirm the message.
+        *   Committing the changes with the generated (or edited) message.
 
 ## Development
 

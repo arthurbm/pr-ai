@@ -4,8 +4,8 @@ import { generatePrContent } from "../../core/ai";
 import { ensureBranchIsPushed, getGitInfo } from "../../core/git";
 import { askAndOpenPr, createGitHubPr } from "../../core/github";
 import { checkPrerequisites } from "../../core/prerequisites";
+import { reviewAndConfirmPr } from "../../ui/pr-ui";
 import { theme } from "../../ui/theme";
-import { reviewAndConfirmPr } from "../../ui/ui";
 
 // Define the expected shape of options for this command
 interface GeneratePrOptions {

@@ -209,3 +209,123 @@ export async function ensureBranchIsPushed(
 		);
 	}
 }
+
+/**
+ * Gets the diff of currently staged changes.
+ * @returns {Promise<string>} - The staged diff string.
+ * @throws {Error} If `git diff --staged` fails.
+ */
+export async function getStagedDiff(): Promise<string> {
+	const spinner = ora("Checking for staged changes...").start();
+	try {
+		const diffOutput = await $`git diff --staged`.text();
+		if (!diffOutput.trim()) {
+			spinner.succeed(theme.success("No staged changes found."));
+			return "";
+		}
+		spinner.succeed(theme.success("Found staged changes."));
+		return diffOutput.trim();
+	} catch (error: unknown) {
+		spinner.fail(theme.error("Failed to get staged diff."));
+		if (error instanceof Error) throw error;
+		throw new Error(
+			"Git Error: An unknown error occurred while fetching staged diff.",
+		);
+	}
+}
+
+/**
+ * Checks for unstaged changes (modified or untracked files).
+ * @returns {Promise<{unstagedFiles: string[], untrackedFiles: string[]}>} - An object with arrays of unstaged and untracked file paths.
+ * @throws {Error} If `git status --porcelain` fails.
+ */
+export async function getUnstagedChanges(): Promise<{
+	unstagedModifiedFiles: string[];
+	untrackedFiles: string[];
+}> {
+	const spinner = ora("Checking for unstaged files...").start();
+	try {
+		const statusOutput = await $`git status --porcelain`.text();
+		const unstagedModifiedFiles: string[] = [];
+		const untrackedFiles: string[] = [];
+
+		const lines = statusOutput.trim().split("\n");
+		for (const line of lines) {
+			const trimmedLine = line.trim();
+			if (trimmedLine.startsWith("M ") || trimmedLine.startsWith(" M")) {
+				unstagedModifiedFiles.push(trimmedLine.substring(2).trim());
+			} else if (trimmedLine.startsWith("??")) {
+				untrackedFiles.push(trimmedLine.substring(2).trim());
+			}
+		}
+
+		if (unstagedModifiedFiles.length === 0 && untrackedFiles.length === 0) {
+			spinner.succeed(theme.success("No unstaged or untracked files found."));
+		} else {
+			spinner.succeed(
+				theme.success(
+					`Found ${unstagedModifiedFiles.length} unstaged modified and ${untrackedFiles.length} untracked files.`,
+				),
+			);
+		}
+		return { unstagedModifiedFiles, untrackedFiles };
+	} catch (error: unknown) {
+		spinner.fail(theme.error("Failed to check for unstaged files."));
+		if (error instanceof Error) throw error;
+		throw new Error(
+			"Git Error: An unknown error occurred while checking git status.",
+		);
+	}
+}
+
+/**
+ * Stages all modified and new (untracked) files.
+ * Corresponds to `git add .`
+ * @throws {Error} If `git add .` fails.
+ */
+export async function stageAllTrackedAndUntrackedChanges(): Promise<void> {
+	const spinner = ora(
+		"Staging all modified and new files (`git add .`)...",
+	).start();
+	try {
+		const addResult = await $`git add .`.nothrow();
+		if (addResult.exitCode !== 0) {
+			spinner.fail(theme.error("Failed to stage all files."));
+			console.error(theme.dim(addResult.stderr.toString()));
+			throw new Error("Git Error: `git add .` command failed.");
+		}
+		spinner.succeed(theme.success("All modified and new files staged."));
+	} catch (error: unknown) {
+		spinner.fail(theme.error("Failed to stage all files."));
+		if (error instanceof Error) throw error;
+		throw new Error("Git Error: An unknown error occurred during `git add .`.");
+	}
+}
+
+/**
+ * Performs a git commit with the given message.
+ * @param {string} message - The commit message.
+ * @throws {Error} If `git commit -m` fails.
+ */
+export async function gitCommit(message: string): Promise<void> {
+	const spinner = ora("Performing git commit...").start();
+	try {
+		// Using .nothrow() and checking exitCode for Bun.spawn issues with quotes in command
+		const commitResult = await $`git commit -m ${message}`.nothrow();
+
+		if (commitResult.exitCode !== 0) {
+			spinner.fail(theme.error("Git commit failed."));
+			console.error(theme.dim(commitResult.stderr.toString()));
+			throw new Error(
+				`Git Error: 'git commit -m "${message}"' command failed.`,
+			);
+		}
+		spinner.succeed(theme.success("Commit successful."));
+	} catch (error: unknown) {
+		spinner.fail(theme.error("Git commit failed."));
+		if (error instanceof Error) throw error;
+		throw new Error(
+			"Git Error: An unknown error occurred during commit operation.",
+		);
+	}
+}

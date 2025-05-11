@@ -1,5 +1,6 @@
 import type { Command } from "commander";
 import type { AppConfig } from "../../config/config";
+import { registerCommitCommand } from "./commit";
 import { registerPrCommand } from "./pr";
 
 export function registerGenerateCommands(
@@ -14,5 +15,6 @@ export function registerGenerateCommands(
 
 	// Register subcommands for 'generate'
 	registerPrCommand(generateCommand, config);
+	registerCommitCommand(generateCommand, config);
 	// Future commands like registerCommitCommand(generateCommand, config) can be added here.
 }
