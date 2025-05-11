@@ -71,4 +71,27 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
 - [ ] **Custom Rules:** Support user-defined rules in configuration file
   - [ ] PR templates/rules
   - [ ] Commit message templates/rules
-  - [ ] Review criteria/rules 
+  - [ ] Review criteria/rules
+
+## 9. Src Directory Refactoring
+
+- [x] **Create new directory structure:**
+  - [x] `src/core/`
+  - [x] `src/config/`
+  - [x] `src/ui/`
+  - [x] `src/utils/`
+- [x] **Move files to `src/core/`:**
+  - [x] `src/ai.ts` -> `src/core/ai.ts`
+  - [x] `src/git.ts` -> `src/core/git.ts`
+  - [x] `src/github.ts` -> `src/core/github.ts`
+  - [x] `src/prerequisites.ts` -> `src/core/prerequisites.ts`
+- [x] **Move files to `src/config/`:**
+  - [x] `src/config.ts` -> `src/config/index.ts`
+- [x] **Move files to `src/ui/`:**
+  - [x] `src/ui.ts` -> `src/ui/index.ts`
+  - [x] `src/theme.ts` -> `src/ui/theme.ts`
+- [x] **Move files to `src/utils/`:**
+  - [x] `src/errors.ts` -> `src/utils/errors.ts`
+- [x] **Update import paths in all affected files.**
+- [x] **Verify all commands and functionalities after refactoring.**
+- [x] **Run tests (if applicable) to ensure no regressions.** 

@@ -1,7 +1,7 @@
 import { $ } from "bun";
 import inquirer from "inquirer";
 import ora from "ora";
-import { theme } from "./theme";
+import { theme } from "../ui/theme";
 
 /**
  * Fetches Git information including current branch, diff, and commits against a base branch.

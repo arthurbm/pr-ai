@@ -2,8 +2,8 @@ import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import ora from "ora";
 import { z } from "zod";
-import { parseAiApiError } from "./errors";
-import { theme } from "./theme";
+import { theme } from "../ui/theme";
+import { parseAiApiError } from "../utils/errors";
 
 /**
  * Schema for the expected AI response (PR title and body).
