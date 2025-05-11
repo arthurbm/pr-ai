@@ -59,13 +59,13 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
 
 - [ ] **Future Command Extensions:**
   - [ ] `gitmagic generate commit` - AI-powered commit message generation
-    - [ ] Check for staged changes (`git diff --staged`)
-    - [ ] Handle case: No staged changes (inform user and exit)
-    - [ ] Handle case: Unstaged changes exist (prompt user to stage them, abort, or continue with only staged)
-    - [ ] Call AI service to generate commit message based on staged changes
-    - [ ] Allow user to review and edit the generated commit message
-    - [ ] Perform the commit (`git commit -m "message"`)
-    - [ ] Add relevant command-line options (e.g., `--all` or `-a` to stage all tracked, modified files before commit)
+    - [x] Check for staged changes (`git diff --staged`)
+    - [x] Handle case: No staged changes (inform user and exit)
+    - [x] Handle case: Unstaged changes exist (prompt user to stage them, abort, or continue with only staged)
+    - [x] Call AI service to generate commit message based on staged changes (now includes title and bullet-point body)
+    - [x] Allow user to review and edit the generated commit message (title and body separately)
+    - [x] Perform the commit (`git commit -m "message"`)
+    - [x] Add relevant command-line options (e.g., `--all` or `-a` to stage all tracked, modified files before commit)
   - [ ] `gitmagic review <pr_url>` - AI-assisted PR review
   - [ ] Additional commands as needed
 

@@ -1,18 +1,23 @@
 # GitMagic CLI 🧙✨
 
-A command-line tool to automate GitHub Pull Request creation using AI.
+A command-line tool to enhance your Git workflow with AI-powered features, including automated Pull Request and commit message generation.
 
-This tool analyzes your local Git changes, uses AI (via OpenAI) to generate a relevant title and description, and creates a PR using the GitHub CLI (`gh`).
+This tool analyzes your local Git changes, uses AI (via OpenAI) to generate relevant content, and integrates with Git and GitHub commands.
 
 ## Features
 
-*   Analyzes committed changes between your current branch and a base branch (default: `main`).
-*   Generates PR title and body using AI (powered by Vercel AI SDK and OpenAI).
-*   Allows reviewing and editing the AI-generated content before creating the PR.
-*   Supports multiple languages for PR content generation.
+*   **Pull Request Generation (`generate pr`):**
+    *   Analyzes committed changes between your current branch and a base branch (default: `main`).
+    *   Generates PR title and body using AI.
+    *   Prompts to push the current branch if it doesn't exist on the remote.
+    *   Optionally opens the created PR in your browser.
+*   **Commit Message Generation (`generate commit`):**
+    *   Analyzes staged changes to generate a conventional commit message (title and body with bullet points).
+    *   Handles unstaged changes with user prompts or automatic staging via an option.
+*   **General:**
+    *   Allows reviewing and editing all AI-generated content before finalizing.
+    *   Supports multiple languages for content generation.
 *   Checks for prerequisites (`git`, `gh` installed and authenticated, `OPENAI_API_KEY` set).
-*   Prompts to push the current branch if it doesn't exist on the remote.
-*   Optionally opens the created PR in your browser.
 *   Uses spinners and colored output for a better user experience.
 
 ## Prerequisites
@@ -199,9 +204,9 @@ The tool will guide you through the process:
     *   **For `generate commit`:**
         *   Checking for staged changes.
         *   If no staged changes, it may prompt to stage unstaged changes (unless `--yes` or `-a` is used).
-        *   Generating a commit message with AI based on your staged changes.
-        *   Allowing you to review, edit, or confirm the message.
-        *   Committing the changes with the generated (or edited) message.
+        *   Generating a commit message with AI, including a concise **title** and a detailed **body in bullet points**, based on your staged changes.
+        *   Allowing you to review and edit the title and body separately.
+        *   Committing the changes with the generated (or edited) message, formatted with the title on the first line, followed by a blank line and then the body.
 
 ## Development
 
