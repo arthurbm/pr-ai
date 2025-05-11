@@ -1,11 +1,11 @@
 import type { Command } from "commander";
-import { generatePrContent } from "../../ai";
-import type { AppConfig } from "../../config"; // Using AppConfig and Required
-import { ensureBranchIsPushed, getGitInfo } from "../../git";
-import { askAndOpenPr, createGitHubPr } from "../../github";
-import { checkPrerequisites } from "../../prerequisites";
-import { theme } from "../../theme";
-import { reviewAndConfirmPr } from "../../ui";
+import type { AppConfig } from "../../config/config"; // Using AppConfig and Required
+import { generatePrContent } from "../../core/ai";
+import { ensureBranchIsPushed, getGitInfo } from "../../core/git";
+import { askAndOpenPr, createGitHubPr } from "../../core/github";
+import { checkPrerequisites } from "../../core/prerequisites";
+import { theme } from "../../ui/theme";
+import { reviewAndConfirmPr } from "../../ui/ui";
 
 // Define the expected shape of options for this command
 interface GeneratePrOptions {

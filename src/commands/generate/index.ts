@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import type { AppConfig } from "../../config";
+import type { AppConfig } from "../../config/config";
 import { registerPrCommand } from "./pr";
 
 export function registerGenerateCommands(

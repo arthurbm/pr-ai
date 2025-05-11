@@ -1,6 +1,6 @@
 import { $ } from "bun";
 import ora from "ora";
-import { theme } from "./theme";
+import { theme } from "../ui/theme";
 
 /**
  * Checks if required tools (git, gh) are installed and authenticated.
