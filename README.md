@@ -142,24 +142,24 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 3.  Ensure your desired changes are **committed** to the branch.
 4.  Run the command:
     ```bash
-    gitmagic
+    gitmagic generate pr
     ```
 5.  You can specify different options with command line arguments:
     ```bash
     # Generate PR content in Portuguese
-    gitmagic --language portuguese
+    gitmagic generate pr --language portuguese
     
     # Use a different model
-    gitmagic --model gpt-4o
+    gitmagic generate pr --model gpt-4o
     
     # Change base branch
-    gitmagic --base develop
+    gitmagic generate pr --base develop
     
     # Skip confirmations
-    gitmagic --yes
+    gitmagic generate pr --yes
     
     # Combine multiple options
-    gitmagic --language spanish --model gpt-4o --base develop --yes
+    gitmagic generate pr --language spanish --model gpt-4o --base develop --yes
     ```
 
  The tool will guide you through the process:
