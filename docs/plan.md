@@ -48,4 +48,27 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
 - [ ] **Authenticate with npm:** Run `npm login` (or `bunx npm login`).
 - [ ] **Versioning:** Use `npm version patch|minor|major` to update version before publishing.
 - [ ] **Publish:** Run `npm publish` (or `bunx npm publish`).
-- [ ] **Test Installation:** Install globally (`npm install -g gitmagic`) and test. 
+- [ ] **Test Installation:** Install globally (`npm install -g gitmagic`) and test.
+
+## 7. Command Structure Refactoring
+
+- [x] **Initial Subcommand Architecture:**
+  - [x] Refactor current PR generation into `gitmagic generate pr`
+  - [x] Create command factory infrastructure
+  - [x] Update documentation to reflect new command structure
+
+- [ ] **Future Command Extensions:**
+  - [ ] `gitmagic generate commit` - AI-powered commit message generation
+  - [ ] `gitmagic review <pr_url>` - AI-assisted PR review
+  - [ ] Additional commands as needed
+
+## 8. Configuration and Setup
+
+- [ ] **Init Command:** Implement `npx gitmagic init` to:
+  - [ ] Create default configuration file
+  - [ ] Guide user through setting up API keys and preferences
+  - [ ] Set up additional customizations
+- [ ] **Custom Rules:** Support user-defined rules in configuration file
+  - [ ] PR templates/rules
+  - [ ] Commit message templates/rules
+  - [ ] Review criteria/rules 
