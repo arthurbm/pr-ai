@@ -17,7 +17,7 @@ async function mainCli() {
 	try {
 		const config = await loadConfig();
 
-		program.version(version).description("GitMagic: AI-powered Git utilities.");
+		program.version(version).description("GitLift: AI-powered Git utilities.");
 
 		registerGenerateCommands(program, config);
 

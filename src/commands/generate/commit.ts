@@ -22,7 +22,7 @@ async function handleGenerateCommit(
 	options: GenerateCommitOptions,
 	config: Required<AppConfig>,
 ) {
-	console.log(theme.primary("🚀 Starting GitMagic Commit Generation..."));
+	console.log(theme.primary("🚀 Starting GitLift Commit Generation..."));
 
 	try {
 		if (options.all) {

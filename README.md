@@ -1,4 +1,4 @@
-# GitMagic CLI 🧙✨
+# GitLift CLI 🧙✨
 
 A command-line tool to enhance your Git workflow with AI-powered features, including automated Pull Request and commit message generation.
 
@@ -32,33 +32,33 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate rele
 ### Via npm (Recommended)
 
 ```bash
-npm install -g gitmagic
+npm install -g gitlift
 ```
 
 ### Via yarn
 
 ```bash
-yarn global add gitmagic
+yarn global add gitlift
 ```
 
 ### Via pnpm
 
 ```bash
-pnpm add -g gitmagic
+pnpm add -g gitlift
 ```
 
 ### Via bun
 
 ```bash
-bun add -g gitmagic
+bun add -g gitlift
 ```
 
 ### From Source
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/arthurbm/gitmagic.git
-    cd gitmagic
+    git clone https://github.com/arthurbm/gitlift.git
+    cd gitlift
     ```
 2.  **Install dependencies and build:**
     ```bash
@@ -92,7 +92,7 @@ bun add -g gitmagic
     # Using bun
     bun link
     ```
-    This makes the `gitmagic` command available in your terminal.
+    This makes the `gitlift` command available in your terminal.
 
 ## Configuration
 
@@ -107,17 +107,17 @@ bun add -g gitmagic
 
 You can configure default options by creating a configuration file in your project directory or any parent directory. The tool uses `cosmiconfig` and will automatically look for:
 
-*   `.gitmagicrc` (YAML or JSON)
-*   `.gitmagicrc.json`
-*   `.gitmagicrc.yaml`
-*   `.gitmagicrc.yml`
-*   `.gitmagicrc.js` (ESM or CJS)
-*   `.gitmagicrc.cjs`
-*   `gitmagic.config.js` (ESM or CJS)
-*   `gitmagic.config.cjs`
-*   A `"gitmagic"` key in your `package.json`.
+*   `.gitliftrc` (YAML or JSON)
+*   `.gitliftrc.json`
+*   `.gitliftrc.yaml`
+*   `.gitliftrc.yml`
+*   `.gitliftrc.js` (ESM or CJS)
+*   `.gitliftrc.cjs`
+*   `gitlift.config.js` (ESM or CJS)
+*   `gitlift.config.cjs`
+*   A `"gitlift"` key in your `package.json`.
 
-**Example `.gitmagicrc.json**:**
+**Example `.gitliftrc.json**:**
 
 ```json
 {
@@ -128,7 +128,7 @@ You can configure default options by creating a configuration file in your proje
 }
 ```
 
-**Example `.gitmagicrc.js**:**
+**Example `.gitliftrc.js**:**
 
 ```javascript
 module.exports = {
@@ -147,24 +147,24 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 3.  Ensure your desired changes are **committed** to the branch.
 4.  Run the command:
     ```bash
-    gitmagic generate pr
+    gitlift generate pr
     ```
 5.  You can specify different options with command line arguments:
     ```bash
     # Generate PR content in Portuguese
-    gitmagic generate pr --language portuguese
+    gitlift generate pr --language portuguese
     
     # Use a different model
-    gitmagic generate pr --model gpt-4o
+    gitlift generate pr --model gpt-4o
     
     # Change base branch
-    gitmagic generate pr --base develop
+    gitlift generate pr --base develop
     
     # Skip confirmations
-    gitmagic generate pr --yes
+    gitlift generate pr --yes
     
     # Combine multiple options
-    gitmagic generate pr --language spanish --model gpt-4o --base develop --yes
+    gitlift generate pr --language spanish --model gpt-4o --base develop --yes
     ```
 
  The tool will guide you through the process:
@@ -183,21 +183,21 @@ Command-line arguments (e.g., `--base main`) will always override settings from 
 2.  Stage the changes you want to include in the commit (`git add <file>...` or `git add .`).
 3.  Run the command:
     ```bash
-    gitmagic generate commit
+    gitlift generate commit
     ```
 4.  You can specify different options with command line arguments:
     ```bash
     # Automatically stage all modified/deleted files before generating commit message
-    gitmagic generate commit -a
+    gitlift generate commit -a
 
     # Use a different model for commit message generation
-    gitmagic generate commit --model gpt-4o
+    gitlift generate commit --model gpt-4o
 
     # Generate commit message in a specific language (e.g., for commit conventions in other languages)
-    gitmagic generate commit --language portuguese
+    gitlift generate commit --language portuguese
 
     # Skip confirmation prompts
-    gitmagic generate commit --yes
+    gitlift generate commit --yes
     ```
 
 The tool will guide you through the process:
@@ -240,13 +240,13 @@ To remove the globally linked command:
 
 ```bash
 # Using npm
-npm unlink -g gitmagic
+npm unlink -g gitlift
 
 # Using yarn
-yarn global remove gitmagic
+yarn global remove gitlift
 
 # Using pnpm
-pnpm unlink -g gitmagic
+pnpm unlink -g gitlift
 
 # Using bun
 bun unlink

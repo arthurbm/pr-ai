@@ -1,6 +1,6 @@
 # PR AI CLI - Improvement Tracking
 
-List of suggestions to improve the `gitmagic` CLI, based on previous recommendations.
+List of suggestions to improve the `gitlift` CLI, based on previous recommendations.
 
 ## 1. Argument Parsing and Configuration
 
@@ -9,7 +9,7 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
   - [x] `--model <model-name>`: Choose OpenAI model.
   - [x] `-y` or `--yes`: Skip confirmations.
   - [x] `--dry-run`: See title/body without creating PR.
-- [x] **Configuration File:** Allow a file (`.gitmagic.json`?) to define defaults.
+- [x] **Configuration File:** Allow a file (`.gitlift.json`?) to define defaults.
 
 ## 2. User Experience (UX) Improvements
 
@@ -48,17 +48,17 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
 - [ ] **Authenticate with npm:** Run `npm login` (or `bunx npm login`).
 - [ ] **Versioning:** Use `npm version patch|minor|major` to update version before publishing.
 - [ ] **Publish:** Run `npm publish` (or `bunx npm publish`).
-- [ ] **Test Installation:** Install globally (`npm install -g gitmagic`) and test.
+- [ ] **Test Installation:** Install globally (`npm install -g gitlift`) and test.
 
 ## 7. Command Structure Refactoring
 
 - [x] **Initial Subcommand Architecture:**
-  - [x] Refactor current PR generation into `gitmagic generate pr`
+  - [x] Refactor current PR generation into `gitlift generate pr`
   - [x] Create command factory infrastructure
   - [x] Update documentation to reflect new command structure
 
 - [ ] **Future Command Extensions:**
-  - [ ] `gitmagic generate commit` - AI-powered commit message generation
+  - [ ] `gitlift generate commit` - AI-powered commit message generation
     - [x] Check for staged changes (`git diff --staged`)
     - [x] Handle case: No staged changes (inform user and exit)
     - [x] Handle case: Unstaged changes exist (prompt user to stage them, abort, or continue with only staged)
@@ -66,12 +66,12 @@ List of suggestions to improve the `gitmagic` CLI, based on previous recommendat
     - [x] Allow user to review and edit the generated commit message (title and body separately)
     - [x] Perform the commit (`git commit -m "message"`)
     - [x] Add relevant command-line options (e.g., `--all` or `-a` to stage all tracked, modified files before commit)
-  - [ ] `gitmagic review <pr_url>` - AI-assisted PR review
+  - [ ] `gitlift review <pr_url>` - AI-assisted PR review
   - [ ] Additional commands as needed
 
 ## 8. Configuration and Setup
 
-- [ ] **Init Command:** Implement `npx gitmagic init` to:
+- [ ] **Init Command:** Implement `npx gitlift init` to:
   - [ ] Create default configuration file
   - [ ] Guide user through setting up API keys and preferences
   - [ ] Set up additional customizations

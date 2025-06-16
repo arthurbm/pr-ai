@@ -17,7 +17,7 @@ interface GeneratePrOptions {
 }
 
 async function handleGeneratePr(options: GeneratePrOptions) {
-	console.log(theme.primary("🚀 Starting GitMagic PR Generation..."));
+	console.log(theme.primary("🚀 Starting GitLift PR Generation..."));
 
 	if (options.dryRun) {
 		console.log(

@@ -1,10 +1,10 @@
 {
-	"name": "gitmagic",
+	"name": "gitlift",
 	"version": "1.0.0",
 	"description": "A command-line tool to automate GitHub Pull Request creation using AI",
 	"main": "dist/cli.js",
 	"bin": {
-		"gitmagic": "dist/cli.js"
+		"gitlift": "dist/cli.js"
 	},
 	"type": "module",
 	"files": ["dist", "README.md", "LICENSE"],
@@ -27,12 +27,12 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/arthurbm/gitmagic.git"
+		"url": "git+https://github.com/arthurbm/gitlift.git"
 	},
 	"bugs": {
-		"url": "https://github.com/arthurbm/gitmagic/issues"
+		"url": "https://github.com/arthurbm/gitlift/issues"
 	},
-	"homepage": "https://github.com/arthurbm/gitmagic#readme",
+	"homepage": "https://github.com/arthurbm/gitlift#readme",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/bun": "latest"

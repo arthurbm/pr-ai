@@ -30,7 +30,7 @@ export const defaultConfig: Partial<AppConfig> = {
  * @returns {Promise<Required<AppConfig>>} The loaded and merged configuration (ensuring all fields are present).
  */
 export async function loadConfig(): Promise<Required<AppConfig>> {
-	const explorer = cosmiconfig("gitmagic"); // Module name for searching
+	const explorer = cosmiconfig("gitlift"); // Module name for searching
 	let loadedConfig: AppConfig = {};
 
 	try {
