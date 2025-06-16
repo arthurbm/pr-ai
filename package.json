@@ -1,7 +1,7 @@
 {
 	"name": "gitlift",
-	"version": "1.0.0",
-	"description": "A command-line tool to automate GitHub Pull Request creation using AI",
+	"version": "1.0.1",
+	"description": "AI-powered Git workflow automation - Generate PRs, commit messages, and setup with interactive wizards",
 	"main": "dist/cli.js",
 	"bin": {
 		"gitlift": "dist/cli.js"
@@ -17,13 +17,19 @@
 	"author": "arthurbm",
 	"license": "MIT",
 	"keywords": [
+		"git",
 		"github",
-		"pull-request",
 		"ai",
 		"cli",
 		"automation",
+		"pull-request",
+		"commit-message",
 		"openai",
-		"git"
+		"workflow",
+		"developer-tools",
+		"productivity",
+		"setup-wizard",
+		"conventional-commits"
 	],
 	"repository": {
 		"type": "git",
