@@ -71,10 +71,10 @@ List of suggestions to improve the `gitlift` CLI, based on previous recommendati
 
 ## 8. Configuration and Setup
 
-- [ ] **Init Command:** Implement `npx gitlift init` to:
-  - [ ] Create default configuration file
-  - [ ] Guide user through setting up API keys and preferences
-  - [ ] Set up additional customizations
+- [x] **Init Command:** Implement `npx gitlift init` to:
+  - [x] Create default configuration file
+  - [x] Guide user through setting up API keys and preferences
+  - [x] Set up additional customizations
 - [ ] **Custom Rules:** Support user-defined rules in configuration file
   - [ ] PR templates/rules
   - [ ] Commit message templates/rules

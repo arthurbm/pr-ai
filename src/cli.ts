@@ -3,6 +3,7 @@
 import { program } from "commander"; // Import commander
 import { version } from "../package.json"; // Import version for CLI
 import { registerGenerateCommands } from "./commands/generate";
+import { registerInitCommand } from "./commands/init";
 import { loadConfig } from "./config/config"; // Import config loader
 import { theme } from "./ui/theme";
 
@@ -19,6 +20,7 @@ async function mainCli() {
 
 		program.version(version).description("GitLift: AI-powered Git utilities.");
 
+		registerInitCommand(program);
 		registerGenerateCommands(program, config);
 
 		await program.parseAsync(process.argv);
