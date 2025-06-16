@@ -6,6 +6,11 @@ This tool analyzes your local Git changes, uses AI (via OpenAI) to generate rele
 
 ## Features
 
+*   **Interactive Setup (`init`):**
+    *   Automated setup wizard for first-time configuration.
+    *   Guides through OpenAI API key setup and GitHub authentication.
+    *   Detects and configures optimal settings for your repository.
+    *   Creates personalized configuration files.
 *   **Pull Request Generation (`generate pr`):**
     *   Analyzes committed changes between your current branch and a base branch (default: `main`).
     *   Generates PR title and body using AI.
@@ -94,7 +99,24 @@ bun add -g gitlift
     ```
     This makes the `gitlift` command available in your terminal.
 
-## Configuration
+## Quick Setup
+
+The easiest way to get started is using the interactive setup wizard:
+
+```bash
+gitlift init
+```
+
+This command will guide you through:
+*   Setting up your OpenAI API Key
+*   Authenticating with GitHub CLI
+*   Configuring your preferred editor
+*   Creating a personalized configuration file
+*   Testing your setup
+
+### Manual Configuration
+
+If you prefer manual setup:
 
 *   **OpenAI API Key:** Set the `OPENAI_API_KEY` environment variable:
     ```bash
@@ -141,6 +163,27 @@ module.exports = {
 Command-line arguments (e.g., `--base main`) will always override settings from the configuration file.
 
 ## Usage
+
+### First Time Setup
+
+Run the setup wizard to configure GitLift:
+
+```bash
+gitlift init
+```
+
+Options:
+*   `-g, --global` - Create global configuration file instead of project-specific
+
+The setup wizard will:
+1.  Check if Git and GitHub CLI are installed
+2.  Help you set up your OpenAI API Key
+3.  Authenticate with GitHub if needed  
+4.  Configure your preferred text editor
+5.  Create a configuration file with your preferences
+6.  Test the complete setup
+
+### Generating Pull Requests
 
 1.  Navigate to a Git repository directory.
 2.  Make sure you are on the feature branch you want to create a PR from.
