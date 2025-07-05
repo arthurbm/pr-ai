@@ -269,13 +269,22 @@ The tool will guide you through the process:
     # Using bun
     bun run build
     ```
-*   **Testing:** (Basic setup exists)
+*   **Testing:** Complete test suite with Bun
     ```bash
-    npm test
-    
-    # Using bun
+    # Run all tests
     bun test
+    
+    # Run tests with coverage
+    bun test --coverage
+    
+    # Run tests in watch mode
+    bun test --watch
+    
+    # Run specific test file
+    bun test tests/utils/errors.test.ts
     ```
+    
+    **Test Coverage:** 87.18% - See `tests/README.md` for detailed testing documentation.
 
 ## Unlinking
 
