@@ -49,7 +49,7 @@ export const CommitMessageSchema = z.object({
 export async function generatePrContent(
 	diff: string,
 	commits?: string,
-	modelName = "gpt-4.1-mini",
+	modelName = "gpt-4o-mini",
 	language = "english",
 ): Promise<z.infer<typeof PrContentSchema>> {
 	const spinner = ora(
@@ -95,7 +95,7 @@ export async function generatePrContent(
  */
 export async function generateCommitMessageContent(
 	stagedDiff: string,
-	modelName = "gpt-4.1-mini",
+	modelName = "gpt-4o-mini",
 	language = "english",
 ): Promise<z.infer<typeof CommitMessageSchema>> {
 	const spinner = ora(

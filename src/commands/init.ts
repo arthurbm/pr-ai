@@ -67,7 +67,9 @@ async function setupOpenAIKey() {
 			const profile = shell.includes("zsh") ? ".zshrc" : ".bashrc";
 			const profilePath = join(process.env.HOME || "", profile);
 
-			const exportLine = `\nexport OPENAI_API_KEY="${apiKey}"\n`;
+			// Properly escape the API key to prevent shell injection
+			const escapedApiKey = apiKey.replace(/'/g, "'\"'\"'");
+			const exportLine = `\nexport OPENAI_API_KEY='${escapedApiKey}'\n`;
 			await writeFile(profilePath, exportLine, { flag: "a" });
 
 			console.log(theme.success(`✓ Added OPENAI_API_KEY to ${profile}`));
@@ -173,7 +175,9 @@ async function setupEditor() {
 			const profile = shell.includes("zsh") ? ".zshrc" : ".bashrc";
 			const profilePath = join(process.env.HOME || "", profile);
 
-			const exportLine = `\nexport EDITOR="${editorCommand}"\n`;
+			// Properly escape the editor command to prevent shell injection
+			const escapedEditorCommand = editorCommand.replace(/'/g, "'\"'\"'");
+			const exportLine = `\nexport EDITOR='${escapedEditorCommand}'\n`;
 			await writeFile(profilePath, exportLine, { flag: "a" });
 
 			console.log(theme.success(`✓ Added EDITOR to ${profile}`));
@@ -287,11 +291,11 @@ async function handleInit(options: InitOptions) {
 				name: "model",
 				message: "Preferred OpenAI model:",
 				choices: [
-					{ name: "GPT-4 Turbo (Recommended)", value: "gpt-4.1-mini" },
+					{ name: "GPT-4o Mini (Recommended)", value: "gpt-4o-mini" },
 					{ name: "GPT-4o", value: "gpt-4o" },
-					{ name: "GPT-4o Mini (Faster/Cheaper)", value: "gpt-4o-mini" },
+					{ name: "GPT-4 Turbo", value: "gpt-4-turbo" },
 				],
-				default: "gpt-4.1-mini",
+				default: "gpt-4o-mini",
 			},
 			{
 				type: "list",
