@@ -12,7 +12,8 @@
 		"dev": "bun run src/cli.ts",
 		"build": "tsc",
 		"start": "bun run src/cli.ts",
-		"prepublishOnly": "bun run build"
+		"prepublishOnly": "bun run build",
+		"test": "bun test"
 	},
 	"author": "arthurbm",
 	"license": "MIT",
@@ -41,7 +42,8 @@
 	"homepage": "https://github.com/arthurbm/gitlift#readme",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/bun": "latest"
+		"@types/bun": "latest",
+		"@types/node": "^20.10.5"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
