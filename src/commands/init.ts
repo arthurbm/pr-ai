@@ -41,6 +41,9 @@ async function setupOpenAIKey() {
 	console.log(
 		theme.info("Get your API key at: https://platform.openai.com/api-keys"),
 	);
+	console.log(
+		theme.dim("Your API key should start with 'sk-' followed by additional characters"),
+	);
 
 	const { apiKey } = await inquirer.prompt([
 		{
@@ -48,7 +51,18 @@ async function setupOpenAIKey() {
 			name: "apiKey",
 			message: "Enter your OpenAI API Key:",
 			mask: "*",
-			validate: (input) => input.length > 0 || "API Key is required",
+			validate: (input) => {
+				if (!input || input.length === 0) {
+					return "API Key is required";
+				}
+				if (!input.startsWith("sk-")) {
+					return "API Key should start with 'sk-'";
+				}
+				if (input.length < 20) {
+					return "API Key appears to be too short";
+				}
+				return true;
+			},
 		},
 	]);
 
@@ -67,7 +81,9 @@ async function setupOpenAIKey() {
 			const profile = shell.includes("zsh") ? ".zshrc" : ".bashrc";
 			const profilePath = join(process.env.HOME || "", profile);
 
-			const exportLine = `\nexport OPENAI_API_KEY="${apiKey}"\n`;
+			// Properly escape the API key to prevent shell injection
+			const escapedApiKey = apiKey.replace(/'/g, "'\"'\"'");
+			const exportLine = `\nexport OPENAI_API_KEY='${escapedApiKey}'\n`;
 			await writeFile(profilePath, exportLine, { flag: "a" });
 
 			console.log(theme.success(`✓ Added OPENAI_API_KEY to ${profile}`));
@@ -152,7 +168,16 @@ async function setupEditor() {
 				type: "input",
 				name: "customEditor",
 				message: "Enter editor command:",
-				validate: (input) => input.length > 0 || "Editor command is required",
+				validate: (input) => {
+					if (!input || input.length === 0) {
+						return "Editor command is required";
+					}
+					// Basic validation - check if it looks like a valid command
+					if (input.includes("&&") || input.includes("||") || input.includes(";")) {
+						return "Editor command should not contain shell operators";
+					}
+					return true;
+				},
 			},
 		]);
 		editorCommand = customEditor;
@@ -173,7 +198,9 @@ async function setupEditor() {
 			const profile = shell.includes("zsh") ? ".zshrc" : ".bashrc";
 			const profilePath = join(process.env.HOME || "", profile);
 
-			const exportLine = `\nexport EDITOR="${editorCommand}"\n`;
+			// Properly escape the editor command to prevent shell injection
+			const escapedEditorCommand = editorCommand.replace(/'/g, "'\"'\"'");
+			const exportLine = `\nexport EDITOR='${escapedEditorCommand}'\n`;
 			await writeFile(profilePath, exportLine, { flag: "a" });
 
 			console.log(theme.success(`✓ Added EDITOR to ${profile}`));
@@ -208,26 +235,68 @@ async function createConfigFile(config: InitConfig, isGlobal: boolean) {
 
 async function testConfiguration(config: InitConfig) {
 	const spinner = ora("Testing configuration...").start();
+	const testResults = {
+		openai: false,
+		github: false,
+		git: false,
+	};
 
 	try {
 		// Test OpenAI API
 		spinner.text = "Testing OpenAI API connection...";
-		const testPrompt = "test";
-		// Note: This would be a minimal API call to test connectivity
-		// For now, we'll just check if the key exists
 		if (!process.env.OPENAI_API_KEY) {
 			throw new Error("OpenAI API Key not found");
 		}
 
+		try {
+			// Make a simple API call to test the key
+			const { openai } = await import("@ai-sdk/openai");
+			const { generateText } = await import("ai");
+			
+			await generateText({
+				model: openai(config.model),
+				prompt: "Hello",
+				maxTokens: 5,
+			});
+			
+			testResults.openai = true;
+			spinner.text = theme.success("✓ OpenAI API connection successful");
+		} catch (apiError) {
+			console.log(theme.warning("\n⚠️ OpenAI API test failed"));
+			console.log(theme.dim("This might be due to invalid API key or network issues"));
+			console.log(theme.dim("You can continue, but AI features may not work"));
+		}
+
 		// Test GitHub CLI
-		spinner.text = "Testing GitHub CLI...";
-		await $`gh auth status`.quiet();
+		spinner.text = "Testing GitHub CLI authentication...";
+		try {
+			await $`gh auth status`.quiet();
+			testResults.github = true;
+			spinner.text = theme.success("✓ GitHub CLI authenticated");
+		} catch (ghError) {
+			console.log(theme.warning("\n⚠️ GitHub CLI test failed"));
+			console.log(theme.dim("You may need to run 'gh auth login' later"));
+		}
 
 		// Test Git
-		spinner.text = "Testing Git...";
-		await $`git status`.quiet();
+		spinner.text = "Testing Git repository...";
+		try {
+			await $`git status`.quiet();
+			testResults.git = true;
+			spinner.text = theme.success("✓ Git repository detected");
+		} catch (gitError) {
+			console.log(theme.warning("\n⚠️ Git test failed"));
+			console.log(theme.dim("Make sure you're in a Git repository"));
+		}
 
-		spinner.succeed(theme.success("✓ All configurations working correctly!"));
+		const successCount = Object.values(testResults).filter(Boolean).length;
+		const totalTests = Object.keys(testResults).length;
+
+		if (successCount === totalTests) {
+			spinner.succeed(theme.success("✓ All configurations working correctly!"));
+		} else {
+			spinner.succeed(theme.warning(`✓ Setup completed (${successCount}/${totalTests} tests passed)`));
+		}
 	} catch (error) {
 		spinner.fail(theme.error("⚠️ Configuration test failed"));
 		console.log(
@@ -246,12 +315,28 @@ async function handleInit(options: InitOptions) {
 			"This will guide you through setting up GitLift for your project.",
 		),
 	);
+	console.log(
+		theme.dim(
+			"You can exit at any time with Ctrl+C and run 'gitlift init' again.",
+		),
+	);
+
+	const setupProgress = {
+		prerequisites: false,
+		openai: false,
+		github: false,
+		editor: false,
+		config: false,
+		test: false,
+	};
 
 	try {
 		// Step 1: Check basic prerequisites
 		console.log(theme.info("\n📋 Step 1: Checking prerequisites..."));
+		console.log(theme.dim("Verifying Git and GitHub CLI are installed"));
 		try {
 			await checkPrerequisites();
+			setupProgress.prerequisites = true;
 		} catch (error) {
 			console.log(
 				theme.warning("⚠️ Some prerequisites are missing. Let's set them up!"),
@@ -260,18 +345,25 @@ async function handleInit(options: InitOptions) {
 
 		// Step 2: Setup OpenAI API Key
 		console.log(theme.info("\n🔑 Step 2: OpenAI API Key setup..."));
+		console.log(theme.dim("This is required for AI-powered content generation"));
 		await setupOpenAIKey();
+		setupProgress.openai = true;
 
 		// Step 3: Setup GitHub Authentication
 		console.log(theme.info("\n🐙 Step 3: GitHub CLI authentication..."));
+		console.log(theme.dim("This is needed to create pull requests"));
 		await setupGitHubAuth();
+		setupProgress.github = true;
 
 		// Step 4: Setup Editor
 		console.log(theme.info("\n✏️ Step 4: Editor configuration..."));
+		console.log(theme.dim("Choose your preferred editor for reviewing generated content"));
 		await setupEditor();
+		setupProgress.editor = true;
 
 		// Step 5: Configuration wizard
 		console.log(theme.info("\n⚙️ Step 5: GitLift configuration..."));
+		console.log(theme.dim("Customize GitLift settings for your workflow"));
 
 		const detectedBranch = await detectGitInfo();
 
@@ -281,6 +373,7 @@ async function handleInit(options: InitOptions) {
 				name: "baseBranch",
 				message: "Default base branch for PRs:",
 				default: detectedBranch,
+				validate: (input) => input.length > 0 || "Base branch is required",
 			},
 			{
 				type: "list",
@@ -301,6 +394,8 @@ async function handleInit(options: InitOptions) {
 					{ name: "English", value: "english" },
 					{ name: "Português", value: "portuguese" },
 					{ name: "Español", value: "spanish" },
+					{ name: "Français", value: "french" },
+					{ name: "Deutsch", value: "german" },
 					{ name: "Other (specify)", value: "other" },
 				],
 				default: "english",
@@ -325,20 +420,35 @@ async function handleInit(options: InitOptions) {
 			config.language = customLanguage;
 		}
 
+		setupProgress.config = true;
+
 		// Step 6: Save configuration
 		console.log(theme.info("\n💾 Step 6: Saving configuration..."));
 		await createConfigFile(config as InitConfig, options.global);
 
 		// Step 7: Test configuration
 		console.log(theme.info("\n🧪 Step 7: Testing configuration..."));
+		console.log(theme.dim("Verifying all components are working correctly"));
 		await testConfiguration(config as InitConfig);
+		setupProgress.test = true;
 
 		// Success message
 		console.log(theme.success("\n✨ GitLift setup completed successfully!"));
-		console.log(theme.info("\nNext steps:"));
+		
+		// Setup summary
+		const completedSteps = Object.values(setupProgress).filter(Boolean).length;
+		const totalSteps = Object.keys(setupProgress).length;
+		console.log(theme.info(`\n📊 Setup Summary: ${completedSteps}/${totalSteps} steps completed`));
+		
+		console.log(theme.info("\n🚀 Next steps:"));
 		console.log(theme.dim("• Try: gitlift generate pr"));
 		console.log(theme.dim("• Try: gitlift generate commit"));
 		console.log(theme.dim("• Docs: https://github.com/arthurbm/gitlift"));
+		
+		console.log(theme.info("\n💡 Tips:"));
+		console.log(theme.dim("• Use --help flag to see all available options"));
+		console.log(theme.dim("• Config file location: " + (options.global ? "~/.gitliftrc.json" : "./.gitliftrc.json")));
+		console.log(theme.dim("• Re-run 'gitlift init' anytime to update settings"));
 	} catch (error: unknown) {
 		if (error instanceof Error) {
 			console.error(theme.error(`\n❌ Setup failed: ${error.message}`));
@@ -348,6 +458,15 @@ async function handleInit(options: InitOptions) {
 				error,
 			);
 		}
+		
+		// Show troubleshooting tips
+		console.log(theme.info("\n🔧 Troubleshooting tips:"));
+		console.log(theme.dim("• Make sure you're in a Git repository"));
+		console.log(theme.dim("• Check your internet connection"));
+		console.log(theme.dim("• Verify your OpenAI API key is valid"));
+		console.log(theme.dim("• Run 'gh auth login' if GitHub CLI auth fails"));
+		console.log(theme.dim("• Try running 'gitlift init' again"));
+		
 		process.exit(1);
 	}
 }

@@ -252,7 +252,8 @@ export async function getUnstagedChanges(): Promise<{
 		const lines = statusOutput.trim().split("\n");
 		for (const line of lines) {
 			const trimmedLine = line.trim();
-			if (trimmedLine.startsWith("M ") || trimmedLine.startsWith(" M")) {
+			if (trimmedLine.startsWith(" M")) {
+				// Only files modified in working tree but not staged
 				unstagedModifiedFiles.push(trimmedLine.substring(2).trim());
 			} else if (trimmedLine.startsWith("??")) {
 				untrackedFiles.push(trimmedLine.substring(2).trim());
