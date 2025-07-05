@@ -18,7 +18,7 @@ export type AppConfig = z.infer<typeof ConfigFileSchema>;
 // Define default configuration values (make this partial, required applied later)
 export const defaultConfig: Partial<AppConfig> = {
 	baseBranch: "main",
-	model: "gpt-4o-mini",
+	model: "gpt-4.1-mini",
 	skipConfirmations: false,
 	language: "english", // Default language is English
 };
