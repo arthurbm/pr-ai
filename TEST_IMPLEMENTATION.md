@@ -28,7 +28,7 @@ Foi implementada uma estrutura completa de testes para o projeto GitLift usando 
 - **`.github/workflows/test.yml`**: Workflow para executar testes automaticamente
 - **`.github/workflows/quality.yml`**: Workflow para verificar qualidade do código
 - Execução automática em PRs e pushes para `main` e `develop`
-- Upload de coverage para Codecov
+- Coverage report gerado localmente
 
 ### 4. Documentação
 - **tests/README.md**: Documentação completa da estrutura de testes
@@ -81,11 +81,9 @@ Foi implementada uma estrutura completa de testes para o projeto GitLift usando 
    - Instala Bun
    - Executa testes
    - Gera coverage report
-   - Upload para Codecov
 
 2. **Code Quality** (quality.yml):
-   - Linter com Biome
-   - Verificação de formatação
+   - Verificação de formatação e lint com Biome
    - Type checking com TypeScript
 
 ### Triggers:

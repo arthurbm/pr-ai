@@ -116,6 +116,7 @@ Os testes são executados automaticamente:
 - Em pushes para `main` e `develop`
 - Incluem verificação de coverage
 - Falham se os testes não passarem
+- Workflow de qualidade de código com Biome
 
 ## Contribuindo
 
